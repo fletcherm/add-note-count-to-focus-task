@@ -2,7 +2,7 @@ class UpdateReviewEvernoteTask
   countNotesInReviewNotebook = ->
     Evernote = Application('Evernote')
 
-    notebooks = (notebook for notebook in Evernote.notebooks when notebook.name() is 'review')
+    notebooks = Evernote.notebooks.whose(name: 'review')
     if notebooks.length != 1
       names = (notebook.name() for notebook in notebooks).join()
       throw "Got more than one review notebook!
