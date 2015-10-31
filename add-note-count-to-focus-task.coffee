@@ -11,4 +11,19 @@ countReviewNotes = ->
 
   reviewNotebook.notes.length
 
-console.log countReviewNotes()
+updateReviewEvernoteTask = ({count}) ->
+  OmniFocus = Application('OmniFocus')
+
+  defaultDocument = OmniFocus.defaultDocument()
+  routines = defaultDocument.flattenedFolders.whose(name: 'Routines')[0]
+  daily = routines.flattenedProjects.whose(name: 'Daily')[0]
+
+  reviewTaskBasename = 'Process Evernote review notebook'
+  reviewTaskNameWithCount = "#{reviewTaskBasename} (#{count})"
+  reviewTask = daily.flattenedTasks.whose(
+    name: { _beginsWith: reviewTaskBasename }
+    completed: false
+  )[0]
+  reviewTask.name = reviewTaskNameWithCount
+
+updateReviewEvernoteTask(count: countReviewNotes())
