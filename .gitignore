@@ -1,3 +1,6 @@
+# Intermediate artifacts
+*.js
+
 # From repo: https://github.com/github/gitignore/blob/master/Ruby.gitignore
 # rev: f23f998be3d8628ce5bdea5a6581a3e0cbfeb4f1
 *.gem
