@@ -1,5 +1,6 @@
-# Intermediate artifacts
+# Intermediate and final build artifacts
 *.js
+com.skeletor.add-note-count-to-focus-task.plist
 
 # From repo: https://github.com/github/gitignore/blob/master/Ruby.gitignore
 # rev: f23f998be3d8628ce5bdea5a6581a3e0cbfeb4f1
