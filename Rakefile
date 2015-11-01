@@ -18,7 +18,7 @@ rule '.js' => '.coffee' do |t|
   end
 end
 
-desc 'Generate the LaunchAgent plist file'
+desc 'Generate the launchd configuration file.'
 task plist: [ SCRIPT_FILENAME, PLIST_TEMPLATE ] do
   File.open(PLIST_FILENAME, 'w') do |plist|
     label = "#{PLIST_PREFIX}.#{BASENAME}"
@@ -43,11 +43,13 @@ task run: SCRIPT_FILENAME do
   sh "osascript -l JavaScript #{SCRIPT_FILENAME}"
 end
 
-task :default do
-  puts "Sadly, there's no good default here."
+desc 'Print help instuctions.'
+task :help do
   puts "Use `rake run` to compile & run the script."
-  puts "Use `rake plist` compile, create the launchd plist, and print installation instructions."
+  puts "Use `rake plist` compile, create the launchd configuration, and print installation instructions."
 end
+
+task default: [ SCRIPT_FILENAME, :plist ]
 
 CLEAN.include FileList['*.js']
 CLEAN.include PLIST_FILENAME
