@@ -28,6 +28,8 @@ My current workflow is :
 
 This script keeps my OmniFocus task up-to-date with the number of unprocessed articles. If I have none (which is common), I know I can immediately check that task as done and move along.
 
+![My OmniFocus daily routine list](https://github.com/fletcherm/add-note-count-to-focus-task/blob/master/images/process-evernote.png)
+
 # Todo
 - [x] Create 'thereCanBeOnlyOne' function to assert we only find one folder, project, task, notebook.
 - [x] Update Evernote notebook search to use whose function.
