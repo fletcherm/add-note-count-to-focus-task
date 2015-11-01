@@ -45,7 +45,7 @@ end
 task :default do
   puts "Sadly, there's no good default here."
   puts "Use `rake run` to compile & run the script."
-  puts "Use `rake plist` to create the launchd plist and print installation instructions."
+  puts "Use `rake plist` compile, create the launchd plist, and print installation instructions."
 end
 
 CLEAN.include FileList['*.js']
