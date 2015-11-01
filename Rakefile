@@ -23,7 +23,7 @@ task plist: [ SCRIPT_FILENAME, PLIST_TEMPLATE ] do
   File.open(PLIST_FILENAME, 'w') do |plist|
     label = "#{PLIST_PREFIX}.#{BASENAME}"
     arguments = %w[ osascript -l JavaScript ]
-    arguments << "/Users/fletcher/git/#{BASENAME}/#{SCRIPT_FILENAME}"
+    arguments << "#{__dir__}/#{SCRIPT_FILENAME}"
 
     template = File.read(PLIST_TEMPLATE)
     content = ERB.new(template, nil, '-').result(binding)
