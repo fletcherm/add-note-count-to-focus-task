@@ -20,19 +20,19 @@ class UpdateReviewEvernoteTask
     else
       results[0]
 
-  _countNotesInReviewNotebook: ->
+  _countNotesInInbox: ->
     Evernote = Application('Evernote')
 
-    reviewNotebook = @_findByName(
-      name: 'review'
+    inboxNotebook = @_findByName(
+      name: 'inbox'
       source: Evernote.notebooks
       multipleResultsMessage: (names) ->
-        "Got more than one review notebook!
+        "Got more than one inbox notebook!
          That's not good, as Evernote enforces unique notebook names. There's probably something wrong with the name matcher.
          Matching notebook names were : [#{names}]."
     )
 
-    reviewNotebook.notes.length
+    inboxNotebook.notes.length
 
   _updateReviewEvernoteTask: ({count}) ->
     OmniFocus = Application('OmniFocus')
@@ -52,7 +52,7 @@ class UpdateReviewEvernoteTask
          Matching project names were : [#{names}]."
     )
 
-    reviewTaskBasename = 'Process Evernote review notebook'
+    reviewTaskBasename = 'Process Evernote inbox'
     reviewTask = @_findBy(
       query:
         completed: false
@@ -67,6 +67,6 @@ class UpdateReviewEvernoteTask
     reviewTask.name = "#{reviewTaskBasename} (#{count})"
 
   run: ->
-    @_updateReviewEvernoteTask(count: @_countNotesInReviewNotebook())
+    @_updateReviewEvernoteTask(count: @_countNotesInInbox())
 
 new UpdateReviewEvernoteTask().run()
