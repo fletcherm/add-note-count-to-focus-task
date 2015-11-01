@@ -35,5 +35,5 @@ This script keeps my OmniFocus task up-to-date with the number of unprocessed ar
 - [x] Update Evernote notebook search to use whose function.
 - [x] Wrap up into a class (for visuals and readability).
 - [x] Automatically run every minute.
-- [ ] Write up a litte more in the README.md.
+- [x] Write up a litte more in the README.md.
 - [ ] Write up a blog post.
