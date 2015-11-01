@@ -31,10 +31,11 @@ task plist: [ SCRIPT_FILENAME, PLIST_TEMPLATE ] do
     plist.print(content)
   end
 
+  install_dir = '$HOME/Library/LaunchAgents'
   puts "Now, copy the generated plist file to your LaunchAgents directory and turn it on."
   puts
-  puts "cp #{PLIST_FILENAME} $HOME/Library/LaunchAgents"
-  puts "launchctl load $HOME/Library/LaunchAgents/#{PLIST_FILENAME}"
+  puts "cp #{PLIST_FILENAME} #{install_dir}"
+  puts "launchctl load #{install_dir}/#{PLIST_FILENAME}"
 end
 
 desc 'Run the script.'
