@@ -1,4 +1,4 @@
-class UpdateReviewEvernoteTask
+class UpdateFocusTasks
   _findByName: ({name, source, multipleResultsMessage}) ->
     @_findBy(
       source: source
@@ -34,7 +34,24 @@ class UpdateReviewEvernoteTask
 
     inboxNotebook.notes.length
 
-  _updateReviewEvernoteTask: ({count}) ->
+  _countTextExpanderSuggestions: ->
+    TextExpander = Application('TextExpander')
+
+    suggestedSnippets = @_findByName(
+      name: 'Suggested Snippets'
+      source: TextExpander.groups
+      multipleResultsMessage: (names) ->
+        "Got more than one 'Suggested Snippets' TextExpander group!
+         Matching group names were : [#{names}]."
+    )
+
+    # November 16, 2015 MRF
+    # In playing around with the TextExpander group, the way I'm accessing snippets didn't
+    # seem quite right. This does appear to give the correct number but it may be by
+    # coincidence. Please improve if it is necessary and you can.
+    suggestedSnippets.snippets.length
+
+  _updateOmniFocusTask: ({taskBasename, count}) ->
     OmniFocus = Application('OmniFocus')
 
     routines = @_findByName(
@@ -52,21 +69,28 @@ class UpdateReviewEvernoteTask
          Matching project names were : [#{names}]."
     )
 
-    reviewTaskBasename = 'Process Evernote inbox'
-    reviewTask = @_findBy(
+    taskBasename = 'Process TextExpander suggestions'
+    task = @_findBy(
       query:
         completed: false
         name:
-          _beginsWith: reviewTaskBasename
+          _beginsWith: taskBasename
       source: daily.flattenedTasks
       multipleResultsMessage: (names) ->
-        "Got more than one #{reviewTaskBasename} task! There should only be one.
+        "Got more than one #{taskBasename} task! There should only be one.
          Matching task names were : [#{names}]."
     )
 
-    reviewTask.name = "#{reviewTaskBasename} (#{count})"
+    task.name = "#{taskBasename} (#{count})"
 
   run: ->
-    @_updateReviewEvernoteTask(count: @_countNotesInInbox())
+    @_updateOmniFocusTask(
+      taskBasename: 'Process TextExpander suggestions'
+      count: @_countNotesInInbox()
+    )
+    @_updateOmniFocusTask(
+      taskBasename: 'Process Evernote inbox'
+      count: @_countTextExpanderSuggestions()
+    )
 
-new UpdateReviewEvernoteTask().run()
+new UpdateFocusTasks().run()
