@@ -36,4 +36,5 @@ This script keeps my OmniFocus task up-to-date with the number of unprocessed ar
 - [x] Wrap up into a class (for visuals and readability).
 - [x] Automatically run every minute.
 - [x] Write up a litte more in the README.md.
-- [ ] Write up a blog post.
+- [x] Write up a blog post.
+- [ ] Copy the final artifact somewhere so I can work on this project without affecting the rest of the system.
