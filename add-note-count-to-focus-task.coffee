@@ -69,7 +69,6 @@ class UpdateFocusTasks
          Matching project names were : [#{names}]."
     )
 
-    taskBasename = 'Process TextExpander suggestions'
     task = @_findBy(
       query:
         completed: false
@@ -86,11 +85,11 @@ class UpdateFocusTasks
   run: ->
     @_updateOmniFocusTask(
       taskBasename: 'Process TextExpander suggestions'
-      count: @_countNotesInInbox()
+      count: @_countTextExpanderSuggestions()
     )
     @_updateOmniFocusTask(
       taskBasename: 'Process Evernote inbox'
-      count: @_countTextExpanderSuggestions()
+      count: @_countNotesInInbox()
     )
 
 new UpdateFocusTasks().run()
