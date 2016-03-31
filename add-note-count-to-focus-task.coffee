@@ -87,9 +87,11 @@ class UpdateFocusTasks
       taskBasename: 'Process TextExpander suggestions'
       count: @_countTextExpanderSuggestions()
     )
-    @_updateOmniFocusTask(
-      taskBasename: 'Process Evernote inbox'
-      count: @_countNotesInInbox()
-    )
+    # MRF 2016-03-31
+    # In the process of migrating away from Evernote. Turning this off.
+    # @_updateOmniFocusTask(
+    #   taskBasename: 'Process Evernote inbox'
+    #   count: @_countNotesInInbox()
+    # )
 
 new UpdateFocusTasks().run()
