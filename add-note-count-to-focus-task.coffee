@@ -34,14 +34,14 @@ class UpdateFocusTasks
 
     inboxNotebook.notes.length
 
-  _countTextExpanderSuggestions: ->
+  _findTextExpanderSnippetsForGroup: (group) ->
     TextExpander = Application('TextExpander')
 
-    suggestedSnippets = @_findByName(
-      name: 'Suggested Snippets'
+    group = @_findByName(
+      name: group
       source: TextExpander.groups
       multipleResultsMessage: (names) ->
-        "Got more than one 'Suggested Snippets' TextExpander group!
+        "Got more than one '#{group}' TextExpander group!
          Matching group names were : [#{names}]."
     )
 
@@ -49,9 +49,22 @@ class UpdateFocusTasks
     # In playing around with the TextExpander group, the way I'm accessing snippets didn't
     # seem quite right. This does appear to give the correct number but it may be by
     # coincidence. Please improve if it is necessary and you can.
-    suggestedSnippets.snippets.length
+    group.snippets
 
-  _updateOmniFocusTask: ({taskBasename, count}) ->
+  _countTextExpanderSuggestions: ->
+    @_findTextExpanderSnippetsForGroup('Suggested Snippets').length
+
+  _contentForTextExpanderSuggestions: ->
+    snippets = [].slice.call(@_findTextExpanderSnippetsForGroup('Suggested Snippets'))
+
+    foo = snippets.map((snippet) ->
+      snippet.name()
+    ).map((name) ->
+      "* #{name}"
+    )
+    foo.join('\n')
+
+  _findOmniFocusTask: (taskBasename) ->
     OmniFocus = Application('OmniFocus')
 
     routines = @_findByName(
@@ -69,7 +82,7 @@ class UpdateFocusTasks
          Matching project names were : [#{names}]."
     )
 
-    task = @_findBy(
+    @_findBy(
       query:
         completed: false
         name:
@@ -80,12 +93,22 @@ class UpdateFocusTasks
          Matching task names were : [#{names}]."
     )
 
-    task.name = "#{taskBasename} (#{count})"
+  _updateOmniFocusTaskTitle: ({taskBasename, content}) ->
+    task = @_findOmniFocusTask(taskBasename)
+    task.name = "#{taskBasename} (#{content})"
+
+  _updateOmniFocusTaskNote: ({taskBasename, content}) ->
+    task = @_findOmniFocusTask(taskBasename)
+    task.note = content
 
   run: ->
-    @_updateOmniFocusTask(
+    @_updateOmniFocusTaskTitle(
       taskBasename: 'Process TextExpander suggestions'
-      count: @_countTextExpanderSuggestions()
+      content: @_countTextExpanderSuggestions()
+    )
+    @_updateOmniFocusTaskNote(
+      taskBasename: 'Process TextExpander suggestions'
+      content: @_contentForTextExpanderSuggestions()
     )
     # MRF 2016-03-31
     # In the process of migrating away from Evernote. Turning this off.
