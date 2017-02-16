@@ -54,8 +54,13 @@ class UpdateFocusTasks
   _countTextExpanderSuggestions: ->
     @_findTextExpanderSnippetsForGroup('Suggested Snippets').length
 
+  # MRF 2017-02-16
+  # Don't ask me to explain how this works. I stole it from the internet.
+  _createArrayFrom: (thingy) ->
+    [].slice.call(thingy)
+
   _contentForTextExpanderSuggestions: ->
-    snippets = [].slice.call(@_findTextExpanderSnippetsForGroup('Suggested Snippets'))
+    snippets = @_createArrayFrom(@_findTextExpanderSnippetsForGroup('Suggested Snippets'))
 
     foo = snippets.map((snippet) ->
       snippet.name()
