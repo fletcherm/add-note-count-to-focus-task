@@ -80,10 +80,10 @@ class UpdateFocusTasks
          Matching folder names were : [#{names}]."
     )
     daily = @_findByName(
-      name: 'Daily'
+      name: 'Monthly'
       source: routines.flattenedProjects
       multipleResultsMessage: (names) ->
-        "Got more than one Daily project! There should only be one.
+        "Got more than one Monthly project! There should only be one.
          Matching project names were : [#{names}]."
     )
 
