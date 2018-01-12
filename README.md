@@ -1,6 +1,8 @@
 # Description
 
-This script automatically updates my `Process Evernote inbox` OmniFocus task with the number of unprocessed articles I have waiting in Evernote.
+As of 2018-01-12, this script updates my "Process TextExpander snippets" OmniFocus task with suggested snippets once a month.
+
+(FYI - at one point, it automatically updated my `Process Evernote inbox` OmniFocus task with the number of unprocessed articles I have waiting in Evernote. No longer by the time I stopped using the script...)
 
 ## Required software
 
